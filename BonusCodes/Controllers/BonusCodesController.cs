@@ -15,18 +15,21 @@ namespace BonusCodes.Controllers
             this.bonusCodesService = bonusCodesService;
         }
 
-        [HttpGet, Route("{code}")]
-        public IHttpActionResult IsValid(string code)
+        [HttpPost, Route]
+        public IHttpActionResult IsValid( [FromBody] string bonusCode)
         {
-            var isValid = bonusCodesService.IsValid(code);
+            if (bonusCode == null)
+                return BadRequest();
+
+            var isValid = bonusCodesService.IsValid(bonusCode);
             if (!isValid)
                 return Ok("not-valid");
 
-            var alreadyExists = bonusCodesService.AlreadyExists(code);
+            var alreadyExists = bonusCodesService.AlreadyExists(bonusCode);
             if (alreadyExists)
                 return Ok("already-exists");
 
-            bonusCodesService.Add(code);
+            bonusCodesService.Add(bonusCode);
             return Ok("added");
         }
     }

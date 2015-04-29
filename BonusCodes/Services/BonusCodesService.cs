@@ -21,7 +21,7 @@ namespace BonusCodes.Services
 
         public bool IsValid(string code)
         {
-            var regex = new Regex(@"[A-Z]{3}-[A-Z]{3}");
+            var regex = new Regex(@"^[A-Z]{3}-[A-Z]{3}$");
             var match = regex.Match(code);
             return match.Success;
         }
