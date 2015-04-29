@@ -16,7 +16,7 @@ namespace BonusCodes.Controllers
         }
 
         [HttpPost, Route]
-        public IHttpActionResult IsValid( [FromBody] string bonusCode)
+        public IHttpActionResult AddBonusCode( [FromBody] string bonusCode)
         {
             if (bonusCode == null)
                 return BadRequest();
