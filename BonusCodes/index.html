@@ -1,10 +1,10 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>Bonus code checker</title>
-        <link rel="stylesheet" type="text/css" href="Content/bootstrap.css">
-        <script src="Scripts/jquery-1.9.1.min.js"></script>
-    </head>
+<head>
+    <title>Bonus code checker</title>
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap.css">
+    <script src="Scripts/jquery-1.9.1.min.js"></script>
+</head>
 
 <body>
     <div class="container">
@@ -56,7 +56,13 @@
                         console.log(data);
 
                         // here we will handle errors and validation messages
-                    });
+                    })
+
+                    .error(function (result) {
+                        alert("error : " + result.message);
+                    }
+
+                    );
 
                 // stop the form from submitting the normal way and refreshing the page
                 event.preventDefault();
