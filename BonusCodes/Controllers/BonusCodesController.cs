@@ -18,19 +18,26 @@ namespace BonusCodes.Controllers
         [HttpPost, Route]
         public IHttpActionResult IsValid( [FromBody] string bonusCode)
         {
-            //if (bonusCode == null)
+            if (bonusCode == null)
                 return BadRequest();
 
-            var isValid = bonusCodesService.IsValid(bonusCode);
-            if (!isValid)
-                return Ok("not-valid");
+            try
+            {
+                var isValid = bonusCodesService.IsValid(bonusCode);
+                if (!isValid)
+                    return Ok("not-valid");
 
-            var alreadyExists = bonusCodesService.AlreadyExists(bonusCode);
-            if (alreadyExists)
-                return Ok("already-exists");
+                var alreadyExists = bonusCodesService.AlreadyExists(bonusCode);
+                if (alreadyExists)
+                    return Ok("already-exists");
 
-            bonusCodesService.Add(bonusCode);
-            return Ok("added");
+                bonusCodesService.Add(bonusCode);
+                return Ok("added");
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
         }
     }
 }

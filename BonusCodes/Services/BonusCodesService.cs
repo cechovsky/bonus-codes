@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace BonusCodes.Services
@@ -21,6 +22,8 @@ namespace BonusCodes.Services
 
         public bool IsValid(string code)
         {
+            if (string.IsNullOrEmpty(code))
+                return false;
             var regex = new Regex(@"^[A-Z]{3}-[A-Z]{3}$");
             var match = regex.Match(code);
             return match.Success;
@@ -33,6 +36,9 @@ namespace BonusCodes.Services
 
         public void Add(string code)
         {
+            if(!IsValid(code) || AlreadyExists(code))
+                throw  new InvalidOperationException("Not possible to add code.");
+
             storedCodes.Add(code);
         }
     }
